@@ -24,6 +24,13 @@ app
 
 app.use(router);
 
+app.get('/', async (_, res) => {
+
+  res.status(200).json({
+    message: "Backend up"
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
