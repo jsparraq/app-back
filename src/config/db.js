@@ -7,6 +7,7 @@ const sequelize = new Sequelize(
   envVars.PASS_DB,
   {
     host: envVars.HOST_DB,
+    port: envVars.PORT_DB,
     dialect: "postgres",
     ssl: true,
     dialectOptions: {

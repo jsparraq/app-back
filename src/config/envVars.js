@@ -1,5 +1,10 @@
+const DB_URI = process.env.DB_URI
 
-exports.HOST_DB = process.env.HOST_DB
-exports.DB_NAME = process.env.DB_NAME
-exports.USER_DB = process.env.USER_DB
-exports.PASS_DB = process.env.PASSWORD_DB
+const regexDBUri = /postgres:\/\/([a-z]+):([a-z0-9]+)@([a-z0-9-.]+):([0-9]+)\/([a-z0-9]+)/
+const matchDBUri = DB_URI.match(regexDBUri)
+
+exports.HOST_DB = matchDBUri[3]
+exports.DB_NAME = matchDBUri[5]
+exports.USER_DB = matchDBUri[1]
+exports.PASS_DB = matchDBUri[2]
+exports.PORT_DB = matchDBUri[4]

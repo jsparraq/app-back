@@ -6,5 +6,7 @@ exports.createUser = async (name, password, email) => {
 };
 
 exports.getUsers = async () => {
-  return User.findAll();
+  return User.findAll({
+    attributes: ['name', 'email']
+  });
 };
