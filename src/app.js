@@ -1,7 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
+const { connection } = require("./config/db");
 
 const router = require("./routes");
 
@@ -24,10 +26,18 @@ app
 
 app.use(router);
 
-app.get('/', async (_, res) => {
+connection
+  .sync({ alter: true })
+  .then(() => {
+    console.log("All models were synchronized successfully.");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
+app.get("/", async (_, res) => {
   res.status(200).json({
-    message: "Backend up"
+    message: "Backend up",
   });
 });
 

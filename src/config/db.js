@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
-const envVars = require('./envVars')
+const envVars = require("./envVars");
 
-const sequelize = new Sequelize(
+const connection = new Sequelize(
   envVars.DB_NAME,
   envVars.USER_DB,
   envVars.PASS_DB,
@@ -12,11 +12,13 @@ const sequelize = new Sequelize(
     ssl: true,
     dialectOptions: {
       ssl: {
-        require: true, 
+        require: true,
         rejectUnauthorized: false,
       },
     },
   }
 );
 
-module.exports = sequelize
+module.exports = {
+  connection,
+};
