@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { JWT_KEY } = require("../config/envVars");
 
-const verifyToken = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   const token = req.headers["authorization"];
   if (!token) {
     return res.status(403).json({
@@ -25,5 +25,5 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = {
-  verifyToken,
+  authMiddleware,
 };
