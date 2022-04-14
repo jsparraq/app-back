@@ -10,3 +10,6 @@ exports.USER_DB = matchDBUri[1];
 exports.PASS_DB = matchDBUri[2];
 exports.PORT_DB = matchDBUri[4];
 exports.JWT_KEY = process.env.JWT_KEY;
+exports.CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
+exports.CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY
+exports.CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET

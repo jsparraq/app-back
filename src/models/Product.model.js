@@ -18,8 +18,8 @@ const Product = connection.define(
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
-    image: {
-      type: DataTypes.BLOB,
+    cloudinary_id: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     createdAt: {
