@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
+const { intersection } = require("lodash");
+
+const { getUser } = require("../services/user.services");
 const { JWT_KEY } = require("../config/envVars");
+const { ErrorHandler } = require("../shared/errors/errorHandler");
 
 const authMiddleware = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -24,6 +28,24 @@ const authMiddleware = (req, res, next) => {
   return next();
 };
 
+const authRoles = (roles) => async (req, _, next) => {
+  const { user } = req;
+  const userDb = await getUser(user.email);
+
+  req.user = userDb;
+  if (intersection([userDb.role], roles).length) {
+    return next();
+  }
+
+  return next(
+    new ErrorHandler(
+      403,
+      "You do not have permissions to perform this operation."
+    )
+  );
+};
+
 module.exports = {
   authMiddleware,
+  authRoles,
 };

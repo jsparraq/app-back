@@ -22,6 +22,10 @@ const Product = connection.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // type: {
+    //   type: DataTypes.ENUM(["Bebida", "Entrada", "Platos"]),
+    //   allowNull: false
+    // },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

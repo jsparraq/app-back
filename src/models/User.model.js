@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { connection } = require("../config/db");
+const roles = require("../shared/enums/roles")
 
 const User = connection.define(
   "User",
@@ -20,6 +21,10 @@ const User = connection.define(
     },
     password: {
       type: DataTypes.STRING(500),
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.ENUM(roles.all()),
       allowNull: false,
     },
     createdAt: {
