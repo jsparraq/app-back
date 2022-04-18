@@ -1,5 +1,4 @@
-const ProductServices = require("../services/product.services");
-const { extractDataIfUnique } = require("../shared/utils/utils");
+const { ProductServices } = require("../services");
 
 const createProduct = async (req, res) => {
   try {

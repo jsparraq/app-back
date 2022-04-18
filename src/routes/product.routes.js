@@ -1,6 +1,5 @@
 const express = require("express");
-const { image } = require("../config/cloudinary");
-const ProductController = require("../controllers/product.controller");
+const { ProductController } = require("../controllers");
 const { authMiddleware, fileMiddleware } = require("../middlewares");
 
 const router = express.Router();

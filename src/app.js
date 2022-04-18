@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const { Product, User } = require("./models");
+const { Product, User, Invoice, InvoiceDetail } = require("./models");
 const router = require("./routes");
 
 const { createUser } = require("./services/user.services");
@@ -36,11 +36,13 @@ app.get("/", async (_, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async () => {
-  await User.sync({ alter: true }).catch((err) => {
-    console.log(err);
-  });
-  await Product.sync({ alter: true }).catch((err) => {
-    console.log(err);
+  await Promise.all([
+    User.sync({ alter: true }),
+    Product.sync({ alter: true }),
+    Invoice.sync({ alter: true }),
+    InvoiceDetail.sync({ alter: true }),
+  ]).catch((err) => {
+    console.log(err.original)
   });
 
   console.log(`App listening to ${PORT}`);
@@ -64,7 +66,6 @@ app.listen(PORT, async () => {
     })
     .catch((err) => {
       console.log("The admin user could not be created");
-      console.log(err);
     });
 });
 

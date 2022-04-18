@@ -1,4 +1,4 @@
-const UserService = require("../services/user.services");
+const { UserServices } = require("../services");
 const roles = require("../shared/enums/roles")
 
 const createEmployee = async (req, res) => {
@@ -10,7 +10,7 @@ const createEmployee = async (req, res) => {
         error: "All fields are required",
       });
     }
-    const user = await UserService.createUser(name, password, email, roles.EMPLOYEE);
+    const user = await UserServices.createUser(name, password, email, roles.EMPLOYEE);
     res.status(201).json({
       ok: true,
       code: 201,
@@ -24,7 +24,7 @@ const createEmployee = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await UserService.getUsers();
+    const users = await UserServices.getUsers();
     res.status(200).json({
       ok: true,
       code: 200,
@@ -45,7 +45,7 @@ const login = async (req, res) => {
         error: "All fields are required",
       });
     }
-    const user = await UserService.login(email, password);
+    const user = await UserServices.login(email, password);
     res.status(200).json({
       ok: true,
       code: 200,
