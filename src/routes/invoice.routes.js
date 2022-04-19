@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .route("/invoice")
   .all(authMiddleware, authRoles(roles.all()))
-  .post(InvoiceController.createInvoice);
+  .post(InvoiceController.createInvoice)
+  .get(InvoiceController.getInvoices);
 
 module.exports = router;

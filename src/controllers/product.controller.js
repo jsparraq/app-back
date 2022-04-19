@@ -39,7 +39,7 @@ const getProducts = async (req, res) => {
     res.status(200).json({
       ok: true,
       code: 201,
-      message: "Product created successfully",
+      message: "Products successfully found",
       products,
     });
   } catch (err) {

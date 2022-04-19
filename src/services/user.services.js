@@ -28,7 +28,9 @@ exports.getUsers = async () => {
 
 exports.getUser = (email) => {
   return User.findOne({
-    email,
+    where: {
+      email,
+    },
     attributes: ["name", "email", "role"],
   });
 };

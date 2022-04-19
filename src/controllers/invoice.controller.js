@@ -24,6 +24,29 @@ const createInvoice = async (req, res) => {
   }
 };
 
+const getInvoices = async (req, res) => {
+  try {
+    const { offset, limit } = req.query;
+    if (!(offset && limit)) {
+      return res.status(400).json({
+        ok: false,
+        error: "All fields are required",
+      });
+    }
+
+    const invoices = await InvoiceServices.getInvoices(offset, limit);
+    res.status(200).json({
+      ok: true,
+      code: 201,
+      message: "Product created successfully",
+      invoices,
+    });
+  } catch (err) {
+    res.status(400).json({ ok: false, error: err.message });
+  }
+};
+
 module.exports = {
   createInvoice,
+  getInvoices,
 };
