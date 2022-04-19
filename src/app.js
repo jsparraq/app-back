@@ -42,7 +42,7 @@ app.listen(PORT, async () => {
     Invoice.sync({ alter: true }),
     InvoiceDetail.sync({ alter: true }),
   ]).catch((err) => {
-    console.log(err.original)
+    console.log(err.original);
   });
 
   console.log(`App listening to ${PORT}`);
@@ -58,10 +58,10 @@ app.listen(PORT, async () => {
     roles.ADMIN
   )
     .then((user) => {
-      // EmailService.send(
-      //   adminUser.email,
-      //   `The admin user has been created and the credentials are \n Email: ${adminUser.email} \n Password: ${adminUser.password}`
-      // );
+      EmailService.send(
+        adminUser.email,
+        `The admin user has been created and the credentials are \n Email: ${adminUser.email} \n Password: ${adminUser.password}`
+      );
       console.log(`Admin user: ${user.email} - ${adminUser.password}`);
     })
     .catch((err) => {

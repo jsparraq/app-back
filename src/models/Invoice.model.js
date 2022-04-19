@@ -12,7 +12,6 @@ const Invoice = connection.define(
     total: {
       type: DataTypes.DOUBLE,
       allowNull: false,
-      unique: true,
     },
     tip: {
       type: DataTypes.DOUBLE,

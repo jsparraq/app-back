@@ -10,7 +10,7 @@ exports.createUser = async (name, password, email, role) => {
     name,
     email: email.toLowerCase(),
     password: encryptedPassword,
-    role
+    role,
   })
     .then((user) => {
       return { name: user.name, email: user.email, role: user.role };
@@ -31,10 +31,13 @@ exports.getUser = (email) => {
     email,
     attributes: ["name", "email", "role"],
   });
-}
+};
 
 exports.login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
+  if (!user) {
+    throw Error("Email don't exists");
+  }
   const passwordValidation = await bcrypt.compare(password, user.password);
   if (user && passwordValidation) {
     const token = jwt.sign({ user_id: user.id, email }, JWT_KEY, {

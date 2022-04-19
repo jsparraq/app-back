@@ -6,7 +6,11 @@ const createProduct = async (name, price, image) => {
   const cloudinary_image = await cloudinary.uploader.upload(image.path, {
     folder: "/menu/platos",
   });
-  return Product.create({ name, price, cloudinary_id: cloudinary_image.public_id })
+  return Product.create({
+    name,
+    price,
+    cloudinary_id: cloudinary_image.public_id,
+  })
     .then((product) => {
       return { name: product.name, price: product.price };
     })
@@ -16,6 +20,14 @@ const createProduct = async (name, price, image) => {
       }
       throw Error(err.original.message);
     });
+};
+
+const getProduct = (name) => {
+  return Product.findOne({
+    where: {
+      name,
+    },
+  });
 };
 
 const getProducts = (offset, limit) => {
@@ -29,4 +41,5 @@ const getProducts = (offset, limit) => {
 module.exports = {
   createProduct,
   getProducts,
+  getProduct,
 };

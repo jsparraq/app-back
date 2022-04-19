@@ -1,8 +1,22 @@
-const { Product, Invoice } = require("../models");
+const { Invoice } = require("../models");
+const ProductServices = require("./product.services");
 
-const createInvoice = (invoice) => {
-    const products = []
-    invoice.products.forEach(product => {
-        products.push()
+const createInvoice = async (invoice) => {
+  const invoiceInstance = await Invoice.create({
+    total: invoice.total,
+    tip: invoice.tip,
+  });
+
+  for (const product of invoice.products) {
+    const productInstance = await ProductServices.getProduct(product.name);
+    invoiceInstance.addProduct(productInstance, {
+      through: { quantity: product.quantity },
     });
+  }
+
+  return invoiceInstance;
+};
+
+module.exports = {
+  createInvoice,
 };

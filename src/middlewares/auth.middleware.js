@@ -31,7 +31,6 @@ const authMiddleware = (req, res, next) => {
 const authRoles = (roles) => async (req, _, next) => {
   const { user } = req;
   const userDb = await getUser(user.email);
-
   req.user = userDb;
   if (intersection([userDb.role], roles).length) {
     return next();

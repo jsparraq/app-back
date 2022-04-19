@@ -1,7 +1,7 @@
 const express = require("express");
 const { UserController } = require("../controllers");
 const { authMiddleware, authRoles } = require("../middlewares");
-const roles = require("../shared/enums/roles")
+const roles = require("../shared/enums/roles");
 
 const router = express.Router();
 

@@ -11,9 +11,9 @@ const createProduct = async (req, res) => {
         error: "All fields are required",
       });
     }
-    
+
     const product = await ProductServices.createProduct(name, price, image);
-    
+
     res.status(201).json({
       ok: true,
       code: 201,
@@ -21,7 +21,6 @@ const createProduct = async (req, res) => {
       product,
     });
   } catch (err) {
-    console.log(err)
     res.status(400).json({ ok: false, error: err.message });
   }
 };

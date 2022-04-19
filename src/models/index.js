@@ -7,5 +7,5 @@ module.exports = {
   Product,
   User,
   Invoice,
-  InvoiceDetail
+  InvoiceDetail,
 };

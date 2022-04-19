@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { connection } = require("../config/db");
-const roles = require("../shared/enums/roles")
+const roles = require("../shared/enums/roles");
 
 const User = connection.define(
   "User",
