@@ -7,8 +7,13 @@ const router = express.Router();
 
 router
   .route("/user")
-  .post(authMiddleware, authRoles([roles.ADMIN]), UserController.createEmployee)
+  .post(authMiddleware, authRoles([roles.EMPLOYEE]), UserController.createEmployee)
   .get(authMiddleware, authRoles([roles.ADMIN]), UserController.getUsers);
+
+router
+  .route("/user/:userId")
+  .all([authMiddleware, authRoles([roles.ADMIN])])
+  .delete(UserController.deleteEmployee);
 
 router.route("/login").post(UserController.login);
 

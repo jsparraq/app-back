@@ -36,14 +36,14 @@ app.get("/", async (_, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async () => {
-  await Promise.all([
-    User.sync({ alter: true }),
-    Product.sync({ alter: true }),
-    Invoice.sync({ alter: true }),
-    InvoiceDetail.sync({ alter: true }),
-  ]).catch((err) => {
-    console.log(err.original);
-  });
+  // await Promise.all([
+  //   User.sync({ alter: true }),
+  //   Product.sync({ alter: true }),
+  //   Invoice.sync({ alter: true }),
+  //   InvoiceDetail.sync({ alter: true }),
+  // ]).catch((err) => {
+  //   console.log(err.original);
+  // });
 
   console.log(`App listening to ${PORT}`);
   const adminUser = {

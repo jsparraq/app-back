@@ -6,6 +6,11 @@ const Invoice = require("./Invoice.model");
 const InvoiceDetail = connection.define(
   "InvoiceDetail",
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     quantity: {
       type: DataTypes.DOUBLE,
       allowNull: false,
@@ -17,7 +22,12 @@ const InvoiceDetail = connection.define(
   }
 );
 
-Product.belongsToMany(Invoice, { through: InvoiceDetail });
-Invoice.belongsToMany(Product, { through: InvoiceDetail });
+Product.belongsToMany(Invoice, {
+  through: InvoiceDetail,
+  onDelete: "NO ACTION",
+});
+Invoice.belongsToMany(Product, {
+  through: InvoiceDetail,
+});
 
 module.exports = InvoiceDetail;

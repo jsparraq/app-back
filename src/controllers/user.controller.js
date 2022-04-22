@@ -10,7 +10,7 @@ const createEmployee = async (req, res) => {
         error: "All fields are required",
       });
     }
-    const user = await UserServices.createUser(
+    const employee = await UserServices.createUser(
       name,
       password,
       email,
@@ -20,7 +20,7 @@ const createEmployee = async (req, res) => {
       ok: true,
       code: 201,
       message: "Employee created successfully",
-      user,
+      employee,
     });
   } catch (err) {
     res.status(400).json({ ok: false, error: err.message });
@@ -35,6 +35,20 @@ const getUsers = async (req, res) => {
       code: 200,
       message: "",
       users,
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+const deleteEmployee = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    await UserServices.deleteUser(userId);
+    res.status(200).json({
+      ok: true,
+      code: 200,
+      message: "Employee deleted successfully",
     });
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -66,4 +80,5 @@ module.exports = {
   createEmployee,
   getUsers,
   login,
+  deleteEmployee,
 };

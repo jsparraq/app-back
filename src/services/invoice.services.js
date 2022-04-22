@@ -1,4 +1,4 @@
-const { Invoice, Product } = require("../models");
+const { Invoice, Product, InvoiceDetail } = require("../models");
 const ProductServices = require("./product.services");
 
 const createInvoice = async (invoice) => {
@@ -18,38 +18,55 @@ const createInvoice = async (invoice) => {
 };
 
 const getInvoices = (offset, limit) => {
+  // TODO: Validate if it exist's invoices
   return Invoice.findAll({
     order: [["createdAt", "DESC"]],
     offset,
     limit,
     include: Product,
   }).then((invoicesDB) => {
-    const invoices = []
+    const invoices = [];
 
     for (const invoiceDB of invoicesDB) {
       const invoice = {
         total: invoiceDB.total,
         tip: invoiceDB.tip,
         Products: [],
-        createdAt: invoiceDB.createdAt
-      }
+        createdAt: invoiceDB.createdAt,
+        id: invoiceDB.id
+      };
 
       for (const productDB of invoiceDB.Products) {
         const product = {
           name: productDB.name,
           price: productDB.price,
-          quantity: productDB.InvoiceDetail.quantity
-        }
-        invoice.Products.push(product)
+          quantity: productDB.InvoiceDetail.quantity,
+        };
+        invoice.Products.push(product);
       }
-      invoices.push(invoice)
+      invoices.push(invoice);
     }
 
-    return invoices
+    return invoices;
+  });
+};
+
+const deleteInvoice = async (id) => {
+  await InvoiceDetail.destroy({
+    where: {
+      InvoiceId: id,
+    },
+  });
+
+  return Invoice.destroy({
+    where: {
+      id,
+    },
   });
 };
 
 module.exports = {
   createInvoice,
   getInvoices,
+  deleteInvoice,
 };

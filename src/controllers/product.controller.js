@@ -47,7 +47,23 @@ const getProducts = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await ProductServices.deleteProduct(productId);
+    res.status(200).json({
+      ok: true,
+      code: 200,
+      message: "",
+      product,
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports = {
   createProduct,
   getProducts,
+  deleteProduct,
 };

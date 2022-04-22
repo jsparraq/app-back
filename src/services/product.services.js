@@ -30,11 +30,21 @@ const getProduct = (name) => {
   });
 };
 
+const deleteProduct = (id) => {
+  // TODO: Delete image in cloudinary
+  return Product.destroy({
+    where: {
+      id,
+    },
+  });
+};
+
 const getProducts = (offset, limit) => {
   return Product.findAll({
     order: [["createdAt", "DESC"]],
     offset,
     limit,
+    attributes: ["id", "name", "price", "cloudinary_id"],
   });
 };
 
@@ -42,4 +52,5 @@ module.exports = {
   createProduct,
   getProducts,
   getProduct,
+  deleteProduct,
 };

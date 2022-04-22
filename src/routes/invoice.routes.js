@@ -7,8 +7,13 @@ const router = express.Router();
 
 router
   .route("/invoice")
-  .all(authMiddleware, authRoles(roles.all()))
+  .all([authMiddleware, authRoles(roles.all())])
   .post(InvoiceController.createInvoice)
   .get(InvoiceController.getInvoices);
+
+router
+  .route("/invoice/:invoiceId")
+  .all([authMiddleware, authRoles([roles.ADMIN])])
+  .delete(InvoiceController.deleteInvoice);
 
 module.exports = router;

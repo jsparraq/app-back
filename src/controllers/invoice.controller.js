@@ -46,7 +46,25 @@ const getInvoices = async (req, res) => {
   }
 };
 
+const deleteInvoice = async (req, res) => {
+  try {
+    const { invoiceId } = req.params;
+
+    const invoice = await InvoiceServices.deleteInvoice(invoiceId)
+
+    res.status(200).json({
+      ok: true,
+      code: 200,
+      message: "",
+      invoice,
+    });
+  } catch (err) {
+    res.status(400).json({ ok: false, error: err.message });
+  }
+};
+
 module.exports = {
   createInvoice,
   getInvoices,
+  deleteInvoice,
 };

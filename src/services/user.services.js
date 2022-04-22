@@ -22,7 +22,7 @@ exports.createUser = async (name, password, email, role) => {
 
 exports.getUsers = async () => {
   return User.findAll({
-    attributes: ["name", "email", "role"],
+    attributes: ["id", "name", "email", "role"],
   });
 };
 
@@ -31,7 +31,15 @@ exports.getUser = (email) => {
     where: {
       email,
     },
-    attributes: ["name", "email", "role"],
+    attributes: ["id", "name", "email", "role"],
+  });
+};
+
+exports.deleteUser = (id) => {
+  return User.destroy({
+    where: {
+      id,
+    },
   });
 };
 
