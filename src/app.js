@@ -7,7 +7,6 @@ const { Product, User, Invoice, InvoiceDetail } = require("./models");
 const router = require("./routes");
 
 const { createUser } = require("./services/user.services");
-const EmailService = require("./shared/emails/emails.service");
 const { ADMIN_EMAIL } = require("./config/envVars");
 
 const roles = require("./shared/enums/roles");
@@ -36,14 +35,15 @@ app.get("/", async (_, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async () => {
-  // await Promise.all([
-  //   User.sync({ alter: true }),
-  //   Product.sync({ alter: true }),
-  //   Invoice.sync({ alter: true }),
-  //   InvoiceDetail.sync({ alter: true }),
-  // ]).catch((err) => {
-  //   console.log(err.original);
-  // });
+  /* await Promise.all([
+    User.sync({ alter: true }),
+    Product.sync({ alter: true }),
+    Invoice.sync({ alter: true }),
+  ]).then(async () => {
+    await InvoiceDetail.sync({ alter: true })
+  }).catch((err) => {
+    console.log(err.original);
+  }); */
 
   console.log(`App listening to ${PORT}`);
   const adminUser = {
@@ -57,14 +57,10 @@ app.listen(PORT, async () => {
     adminUser.email,
     roles.ADMIN
   )
-    .then((user) => {
-      EmailService.send(
-        adminUser.email,
-        `The admin user has been created and the credentials are \n Email: ${adminUser.email} \n Password: ${adminUser.password}`
-      );
+    .then((user) => { 
       console.log(`Admin user: ${user.email} - ${adminUser.password}`);
     })
-    .catch((err) => {
+    .catch(() => {
       console.log("The admin user could not be created");
     });
 });

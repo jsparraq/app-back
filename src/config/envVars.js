@@ -13,6 +13,4 @@ exports.JWT_KEY = process.env.JWT_KEY;
 exports.CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 exports.CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 exports.CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-exports.EMAIL = process.env.EMAIL;
-exports.EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 exports.ADMIN_EMAIL = process.env.ADMIN_EMAIL;
